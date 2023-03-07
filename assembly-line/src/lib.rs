@@ -1,13 +1,11 @@
+const BASE_PRODUCTION_SPEED_PER_HOUR: f64 = 221.0;
+
 pub fn production_rate_per_hour(speed: u8) -> f64 {
-    let speed = speed as f64;
-    if speed >= 9.0 && speed <= 10.0 {
-        speed * 0.77 * 221.0
-    } else if speed >= 5.0 && speed <= 8.0 {
-        speed * 0.9 * 221.0
-    } else if speed >= 1.0 && speed <=4.0 {
-        speed * 1.0 * 221.0
-    } else {
-        0.0
+    BASE_PRODUCTION_SPEED_PER_HOUR * speed as f64 * match speed {
+        1..=4 => 1.0,
+        5..=8 => 0.9,
+        9 | 10 => 0.77,
+        _ => 0.0,
     }
 }
 
